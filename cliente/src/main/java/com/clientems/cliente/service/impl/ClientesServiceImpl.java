@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.clientems.cliente.dto.ClientesDTO;
 import com.clientems.cliente.entity.Clientes;
+import com.clientems.cliente.exception.AplicacaoException;
 import com.clientems.cliente.mapper.ClientesMapper;
 import com.clientems.cliente.repository.ClientesRepository;
 import com.clientems.cliente.service.ClientesService;
