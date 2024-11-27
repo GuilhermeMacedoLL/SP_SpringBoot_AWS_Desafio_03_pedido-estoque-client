@@ -81,8 +81,12 @@ public class ClientesServiceImpl implements ClientesService {
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
-
+		Optional<Clientes> dado = repository.findById(id);
+		
+		if (!dado.isPresent()) {
+			throw new AplicacaoException("Cliente não existe.");
+		}
+		repository.deleteById(id);
 	}
 
 }
