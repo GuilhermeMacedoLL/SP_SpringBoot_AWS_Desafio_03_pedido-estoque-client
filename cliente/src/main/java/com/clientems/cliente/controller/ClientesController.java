@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.clientems.cliente.dto.ClientesDTO;
 import com.clientems.cliente.mapper.ClientesMapper;
 import com.clientems.cliente.service.ClientesService;
+import com.clientems.cliente.util.MediaType;
 
 import lombok.extern.slf4j.Slf4j;
 
