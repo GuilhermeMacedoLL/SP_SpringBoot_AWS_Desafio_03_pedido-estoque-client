@@ -3,12 +3,12 @@ package com.clientems.cliente.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.clientems.cliente.dto.ClientesDTO;
 import com.clientems.cliente.entity.Clientes;
 
-@Service
+@Component
 public class ClientesMapper {
 
 	public ClientesDTO convertEntityToDto(Clientes dado) {
