@@ -46,16 +46,4 @@ public class EstoqueMapper {
 		
 		return listDto;
 	}
-	
-	public List<Estoque> convertListDtoToListEntity(List<EstoqueDTO> listaDto) {
-		List<Estoque> listDado = new ArrayList<>();
-
-		if (listaDto != null) {
-			for (EstoqueDTO dado : listaDto) {
-				listDado.add(convertDtoToEntity(dado));
-			}
-		}
-
-		return listDado;
-	}
 }
