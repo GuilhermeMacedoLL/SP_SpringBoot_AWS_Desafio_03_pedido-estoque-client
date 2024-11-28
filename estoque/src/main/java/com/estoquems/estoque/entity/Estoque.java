@@ -28,7 +28,7 @@ public class Estoque {
 	private Long id;
 	
 	@Column(name = "QUANTIDADE")
-	private int quantidade;
+	private String quantidade;
 	
 	@Column(name = "NOME_PRODUTO")
 	private String nomeProduto;
