@@ -3,7 +3,6 @@ package com.pedidosms.pedidos.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.tomcat.util.http.parser.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pedidosms.pedidos.dto.PedidosDTO;
 import com.pedidosms.pedidos.mapper.PedidosMapper;
 import com.pedidosms.pedidos.service.PedidosService;
+import com.pedidosms.pedidos.util.MediaType;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,7 +40,7 @@ public class PedidosController {
 	}
 
 	@GetMapping(value = "/consulta/{id}", produces = MediaType.APPLICATION_JSON)
-	public ResponseEntity<PedidosDTO> getNome(@PathVariable Long id) {
+	public ResponseEntity<PedidosDTO> getId(@PathVariable Long id) {
 		PedidosDTO dto = new PedidosDTO();
 		dto = this.mapper.convertEntityToDto(this.service.getPedidos(id));
 		return new ResponseEntity<PedidosDTO>(dto, HttpStatus.OK);
