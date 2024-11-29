@@ -28,7 +28,13 @@ public class Pedidos {
 	@Column(name = "PEDIDOS_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(name = "SITUACAO_PEDIDO")
 	private SituacaoPedido situacaoPedido;
+	
+	@Id
+	@Column(name = "CLIENTES_ID")
+	@GeneratedValue(strategy = GenerationType.UUID)
 	private Long clienteId;
 
 }
