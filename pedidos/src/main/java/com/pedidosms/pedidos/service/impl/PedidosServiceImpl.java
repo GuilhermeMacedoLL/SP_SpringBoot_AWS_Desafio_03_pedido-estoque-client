@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.pedidosms.pedidos.dto.PedidosDTO;
 import com.pedidosms.pedidos.entity.Pedidos;
+import com.pedidosms.pedidos.exception.AplicacaoException;
 import com.pedidosms.pedidos.mapper.PedidosMapper;
 import com.pedidosms.pedidos.repository.PedidosRepository;
 import com.pedidosms.pedidos.service.PedidosService;
