@@ -1,0 +1,46 @@
+# Arquivos compilados
+*.class
+
+# Logs
+*.log
+
+# Configurações do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Pastas de build
+/bin/
+build/
+target/
+
+# Arquivos temporários do Maven
+*.war
+*.ear
+
+# Pastas de IDEs
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+
+### Eclipse ###
+.project
+.classpath
+.settings/
+.apt_generated/
+.springBeans/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+# Arquivos temporários de SO e ferramentas
+*.swp
+*.swo
