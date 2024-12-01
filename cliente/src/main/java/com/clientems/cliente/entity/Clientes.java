@@ -1,5 +1,7 @@
 package com.clientems.cliente.entity;
 
+import com.pedidosms.pedidos.enums.SituacaoPedido;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,5 +37,9 @@ public class Clientes {
 	
 	@Column(name = "CPF")
 	private String cpf;
+	
+	public Clientes(Long id2, Long clienteId, SituacaoPedido situacaoPedido) {
+		// TODO Auto-generated constructor stub
+	}
 
 }

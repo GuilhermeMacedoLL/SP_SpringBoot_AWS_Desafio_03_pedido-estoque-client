@@ -7,34 +7,32 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Data
-@Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "PEDIDOS")
-@AllArgsConstructor @NoArgsConstructor
 @Getter
 @Setter
 public class Pedidos {
-	
+
+	@EqualsAndHashCode.Include
 	@Id
-	@Column(name = "PEDIDOS_ID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID_PEDIDO")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="pedidos_seq")
+	@SequenceGenerator(name="id_pedido", sequenceName="pedidos_seq", allocationSize=1)
 	private Long id;
-	
+
 	@Column(name = "SITUACAO_PEDIDO")
 	private SituacaoPedido situacaoPedido;
-	
-	@Id
-	@Column(name = "CLIENTES_ID")
-	@GeneratedValue(strategy = GenerationType.UUID)
+
+	@Column(name = "ID_CLIENTES")
 	private Long clienteId;
 
 }

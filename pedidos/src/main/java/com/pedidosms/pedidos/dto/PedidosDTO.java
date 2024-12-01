@@ -16,7 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor @NoArgsConstructor
 public class PedidosDTO {
 	
-	private long id;
+	private Long id;
 	private SituacaoPedido situacaoPedido;
 	private Long clienteId;
 
