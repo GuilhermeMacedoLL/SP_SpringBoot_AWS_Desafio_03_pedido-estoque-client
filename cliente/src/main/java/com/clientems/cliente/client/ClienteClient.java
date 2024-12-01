@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.clientems.cliente.util.MediaType;
 
 @Component
-@FeignClient(value = "estoque", url = "http://localhost:8081", path = "/estoque")
+@FeignClient(value = "estoque", url = "localhost:8081", path = "/estoque")
 public interface ClienteClient {
 
 	@GetMapping(value = "/consulta/{id}", produces = MediaType.APPLICATION_JSON)
