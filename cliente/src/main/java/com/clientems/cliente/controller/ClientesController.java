@@ -19,11 +19,11 @@ import org.springframework.web.client.RestTemplate;
 
 import com.clientems.cliente.dto.ClientesDTO;
 import com.clientems.cliente.dto.ClientesPedidoDTO;
+import com.clientems.cliente.dto.PedidosDTO;
 import com.clientems.cliente.mapper.ClientesMapper;
 import com.clientems.cliente.service.ClientesService;
 import com.clientems.cliente.util.MediaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pedidosms.pedidos.dto.PedidosDTO;
 
 import lombok.extern.slf4j.Slf4j;
 

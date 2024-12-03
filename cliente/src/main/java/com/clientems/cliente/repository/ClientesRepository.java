@@ -17,4 +17,7 @@ public interface ClientesRepository extends JpaRepository<Clientes, Long>, JpaSp
 
 	@Query(value = "SELECT * FROM CLIENTES WHERE CPF=:cpf", nativeQuery = true)
 	Clientes getClientesByCpf(@Param("cpf") String cpf);
+	
+	@Query(value = "INSERT INTO CLIENTES (id, cpf, nome, sobrenome) VALUES (:id, :cpf, :nome, :sobreNome)", nativeQuery = true)
+	void insertCliente(@Param("id") Long id, @Param("cpf") String cpf, @Param("nome") String nome, @Param("sobreNome") String sobreNome);
 }

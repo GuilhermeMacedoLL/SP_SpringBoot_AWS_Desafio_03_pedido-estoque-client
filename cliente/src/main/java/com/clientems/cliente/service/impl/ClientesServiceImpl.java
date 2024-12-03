@@ -44,16 +44,16 @@ public class ClientesServiceImpl implements ClientesService {
 
 	@Override
 	public Clientes create(ClientesDTO dto) {
-		Clientes dado = repository.getClientes(dto.getNome());
+	        Clientes dadoExistente = repository.getClientes(dto.getNome());
 
-		if (dado != null) {
-			return new Clientes();
-		}
+	        if (dadoExistente != null) {
+	            throw new AplicacaoException("Cliente já existe.");
+	        }
 
-		dado = mapper.convertDtoToEntity(dto);
+	        repository.insertCliente(dto.getId(), dto.getCpf(), dto.getNome(), dto.getSobreNome());
 
-		return repository.save(dado);
-	}
+	        return repository.findById(dto.getId()).orElseThrow(() -> new AplicacaoException("Erro ao inserir cliente"));
+	    }
 
 	@Override
 	public Clientes update(ClientesDTO dto) {

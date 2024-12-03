@@ -1,6 +1,6 @@
 package com.clientems.cliente.entity;
 
-import com.pedidosms.pedidos.enums.SituacaoPedido;
+import com.clientems.cliente.enums.SituacaoPedido;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
