@@ -16,5 +16,7 @@ public interface ClientesService {
 	Clientes update(ClientesDTO dtoInput);
 	
 	void delete(Long id);
+	
+	Long getIdByCpf(String cpf);
 
 }

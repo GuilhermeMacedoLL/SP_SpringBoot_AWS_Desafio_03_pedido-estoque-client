@@ -89,5 +89,14 @@ public class ClientesServiceImpl implements ClientesService {
 		}
 		repository.deleteById(id);
 	}
+	
+	@Override
+    public Long getIdByCpf(String cpf) {
+        Clientes cliente = repository.getClientesByCpf(cpf);
+        if (cliente != null) {
+            return cliente.getId();
+        }
+        return null;
+    }
 
 }

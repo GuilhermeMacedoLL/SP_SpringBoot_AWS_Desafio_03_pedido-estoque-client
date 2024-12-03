@@ -46,6 +46,13 @@ public class EstoqueController {
 		return new ResponseEntity<EstoqueDTO>(dto, HttpStatus.OK);
 	}
 
+	@GetMapping(value = "/consulta/produto/{nomeProduto}", produces = MediaType.APPLICATION_JSON)
+	public ResponseEntity<List<EstoqueDTO>> getEstoqueProduto(@PathVariable String nomeProduto) {
+		List<EstoqueDTO> listaDto = new ArrayList<>();
+		listaDto = this.mapper.convertListEntityToListDto(this.service.getEstoqueProduto(nomeProduto));
+		return new ResponseEntity<List<EstoqueDTO>>(listaDto, HttpStatus.OK);
+	}
+	
 	@PostMapping(value = "/salvar", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
 	public ResponseEntity<EstoqueDTO> create(@RequestBody EstoqueDTO dtoInput) {
 		EstoqueDTO dto = new EstoqueDTO();

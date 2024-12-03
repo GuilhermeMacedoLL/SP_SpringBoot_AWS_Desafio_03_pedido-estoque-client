@@ -16,5 +16,8 @@ public interface PedidosService {
 	Pedidos update(PedidosDTO dtoInput);
 	
 	void delete(Long id);
+	
+	List<Pedidos> getPedidosByClienteId(Long clienteId);
+	
 
 }

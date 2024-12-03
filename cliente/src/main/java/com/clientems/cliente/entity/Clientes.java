@@ -41,5 +41,6 @@ public class Clientes {
 	public Clientes(Long id2, Long clienteId, SituacaoPedido situacaoPedido) {
 		// TODO Auto-generated constructor stub
 	}
+	
 
 }

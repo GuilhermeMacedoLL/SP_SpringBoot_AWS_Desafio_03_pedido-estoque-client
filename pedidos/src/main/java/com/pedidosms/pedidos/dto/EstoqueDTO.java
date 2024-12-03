@@ -1,7 +1,5 @@
 package com.pedidosms.pedidos.dto;
 
-import com.pedidosms.pedidos.enums.SituacaoPedido;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,16 +8,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Data
-@Getter
 @Setter
+@Getter
 @Builder
 @AllArgsConstructor @NoArgsConstructor
-public class PedidosDTO {
-	
-	private Long id;
-	private SituacaoPedido situacaoPedido;
-	private Long clienteId;
-	private String nomeProduto;
-	private int quantidadeProduto;
+public class EstoqueDTO {
 
+	private Long id;
+	private int quantidade;
+	private String nomeProduto;
+	
+	
+	public EstoqueDTO(String nomeProduto, int quantidade) {
+		super();
+		this.quantidade = quantidade;
+		this.nomeProduto = nomeProduto;
+	}
 }

@@ -17,4 +17,6 @@ public interface EstoqueService {
 	
 	void delete(Long id);
 
+	List<Estoque> getEstoqueProduto(String nomeProduto);
+
 }

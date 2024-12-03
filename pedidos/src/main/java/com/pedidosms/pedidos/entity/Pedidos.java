@@ -4,6 +4,8 @@ import com.pedidosms.pedidos.enums.SituacaoPedido;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,10 +31,17 @@ public class Pedidos {
 	@SequenceGenerator(name="id_pedido", sequenceName="pedidos_seq", allocationSize=1)
 	private Long id;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "SITUACAO_PEDIDO")
 	private SituacaoPedido situacaoPedido;
 
 	@Column(name = "ID_CLIENTES")
 	private Long clienteId;
+	
+	@Column(name = "PRODUTO")
+	private String nomeProduto;
+ 
+	@Column(name = "QUANTIDADE_PRODUTO")
+	private int quantidadeProduto;
 
 }

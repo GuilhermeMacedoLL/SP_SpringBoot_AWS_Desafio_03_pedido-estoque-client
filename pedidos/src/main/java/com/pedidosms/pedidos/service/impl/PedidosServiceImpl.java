@@ -5,8 +5,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pedidosms.pedidos.dto.EstoqueDTO;
 import com.pedidosms.pedidos.dto.PedidosDTO;
 import com.pedidosms.pedidos.entity.Pedidos;
 import com.pedidosms.pedidos.exception.AplicacaoException;
@@ -22,6 +28,9 @@ public class PedidosServiceImpl implements PedidosService {
 
 	@Autowired
 	private PedidosMapper mapper;
+
+	@Autowired
+	private RestTemplate restTemplate;
 
 	@Override
 	public List<Pedidos> getAll() {
@@ -50,7 +59,10 @@ public class PedidosServiceImpl implements PedidosService {
 		if (dado != null) {
 			return new Pedidos();
 		}
-
+		if (getEstoque(dto.getNomeProduto()) == null) {
+			throw new RuntimeException("Produto não disponivel no estoque");
+		}
+		atualizaEstoque(dto.getNomeProduto(), dto.getQuantidadeProduto());
 		dado = mapper.convertDtoToEntity(dto);
 
 		return repository.save(dado);
@@ -90,6 +102,59 @@ public class PedidosServiceImpl implements PedidosService {
 			throw new AplicacaoException("Pedido não existe.");
 		}
 		repository.deleteById(id);
+	}
+
+	@Override
+	public List<Pedidos> getPedidosByClienteId(Long clienteId) {
+		List<Pedidos> pedidos = repository.getPedidosByClienteId(clienteId);
+
+		if (pedidos == null || pedidos.isEmpty()) {
+			return new ArrayList<>();
+		}
+		return pedidos;
+	}
+
+	private EstoqueDTO getEstoque(String nomeProduto) {
+		EstoqueDTO estoque = null;
+		if (nomeProduto != null) {
+			String url = "http://localhost:8081/estoque/consulta/produto/nomeProduto";
+
+			try {
+				ResponseEntity<String> response = restTemplate.exchange(url.replace("nomeProduto", nomeProduto),
+						HttpMethod.GET, null, String.class);
+				if (response.getBody() != null) {
+					ObjectMapper objectMapper = new ObjectMapper();
+					EstoqueDTO[] listEstoque = objectMapper.readValue(response.getBody(), EstoqueDTO[].class);
+
+					for (EstoqueDTO dto : listEstoque) {
+						estoque = dto;
+						break;
+					}
+				}
+
+			} catch (Exception e) {
+				throw new RuntimeException("Erro ao chamar o serviço de pedidos: ", e);
+			}
+		}
+		return estoque;
+	}
+
+	private void atualizaEstoque(String nomeProduto, Integer quantidade) {
+		if (nomeProduto != null && quantidade > 0) {
+			String url = "http://localhost:8081/estoque/alterar";
+			EstoqueDTO dto = new EstoqueDTO(nomeProduto, quantidade);
+			try {
+				HttpEntity<EstoqueDTO> requestEntity = new HttpEntity<EstoqueDTO>(dto);
+				ResponseEntity<String> response = restTemplate.exchange(url.replace("nomeProduto", nomeProduto),
+						HttpMethod.PUT, requestEntity, String.class);
+				if (response.getBody() == null) {
+					throw new RuntimeException("Produto não existe");
+				}
+
+			} catch (Exception e) {
+				throw new RuntimeException("Erro ao chamar o serviço de pedidos: ", e);
+			}
+		}
 	}
 
 }

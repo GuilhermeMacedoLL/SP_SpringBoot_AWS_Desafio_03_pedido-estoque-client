@@ -5,9 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.estoquems.estoque.entity.Estoque;
+import com.pedidosms.pedidos.dto.ClientesDTO;
 import com.pedidosms.pedidos.entity.Pedidos;
-import com.pedidosms.pedidos.enums.SituacaoPedido;
 import com.pedidosms.pedidos.repository.PedidosRepository;
 
 @Service
@@ -16,28 +15,26 @@ public class PedidosCloudService {
 	@Autowired
 	private PedidosRepository pedidosRepository;
 	
-    @Value("${estoque.host}")
-    private String estoqueHost;
+    @Value("${clientes.host}")
+    private String clientesHost;
 
     @Autowired
     private RestTemplate restTemplate;
 
-    public String realizarPedido(Long clienteId, Long produtoId, int quantidade) {
-        String uriVariables = estoqueHost + "/estoque/consulta/{id}";
-        
-        Estoque estoque = restTemplate.getForObject(uriVariables, Estoque.class, produtoId);
-        
-        if (estoque == null || Integer.parseInt(estoque.getQuantidade()) < quantidade) {
-            return "Estoque insuficiente para o produto com ID " + produtoId;
+    public String buscarPedidoDetalhado(Long id) {
+        Pedidos pedido = pedidosRepository.findById(id).orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+
+
+        ClientesDTO cliente = restTemplate.getForObject(clientesHost + "/clientes/{clienteId}", ClientesDTO.class, pedido.getClienteId());
+
+        if (cliente == null) {
+            return "Cliente não encontrado";
         }
-        
-        Pedidos pedido = new Pedidos();
-        pedido.setClienteId(clienteId);
-        pedido.setId(produtoId);
-        pedido.setSituacaoPedido(SituacaoPedido.APROVADO);
-        
-        pedidosRepository.save(pedido);
-        
-        return String.format("Pedido realizado com sucesso! Produto ID: %d, Quantidade solicitada: %d. Quantidade disponível no estoque: %d", produtoId, quantidade, estoque.getQuantidade());
+
+        return String.format("Pedido ID: %d, Cliente: %s %s, Status: %s",
+                pedido.getId(),
+                cliente.getNome(),
+                cliente.getSobreNome(),
+                pedido.getSituacaoPedido().name());
     }
 }

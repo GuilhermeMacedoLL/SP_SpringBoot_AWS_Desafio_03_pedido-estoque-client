@@ -11,4 +11,10 @@ public interface ClientesRepository extends JpaRepository<Clientes, Long>, JpaSp
 
 	@Query(value = "SELECT * FROM CLIENTES WHERE NOME=:nome", nativeQuery = true)
 	Clientes getClientes(@Param("nome") String nome);
+	
+	@Query(value = "SELECT * FROM CLIENTES WHERE UPPER(NOME)=UPPER(:nome) AND UPPER(SOBRENOME)=UPPER(:sobreNome)", nativeQuery = true)
+    Clientes getClientesByNomeESobrenome(@Param("nome") String nome, @Param("sobreNome") String sobreNome);
+
+	@Query(value = "SELECT * FROM CLIENTES WHERE CPF=:cpf", nativeQuery = true)
+	Clientes getClientesByCpf(@Param("cpf") String cpf);
 }

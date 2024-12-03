@@ -91,4 +91,11 @@ public class EstoqueServiceImpl implements EstoqueService {
 		repository.deleteById(id);
 	}
 
+	@Override
+	public List<Estoque> getEstoqueProduto(String nomeProduto) {
+		List<Estoque> listEstoque = repository.getListaEstoque(nomeProduto);
+		
+		return listEstoque;
+	}
+
 }
